@@ -54,16 +54,18 @@ function MoonFossilQuest:MtMoon1F()
 		return talkToNpcOnCell(19, 16) -- moon stone
 	elseif not self:isTrainingOver() then
 		return moveToRectangle(37, 60, 40, 62)
-	elseif self.healPokemonOnceTrainingIsOver then
-		return moveToMap("Route 3")
 	else
 		return moveToCell(21, 20) -- Mt. Moon B1F
 	end
 end
 
 function MoonFossilQuest:MtMoonB1F()
-	if game.inRectangle(55, 14, 76, 35) then
-		return moveToCell(56, 34) -- Mt. Moon B2F
+	if game.inRectangle(56, 18, 66, 21) then
+		return moveToCell(65, 20) -- Mt. Moon B2F (wrong way)
+	elseif game.inRectangle(73, 15, 78, 34)
+		or game.inRectangle(53, 29, 78, 34)
+	then
+		return moveToCell(56, 34) -- Mt. Moon B2F (right way)
 	elseif game.inRectangle(32, 19, 42, 22) then
 		return moveToCell(41, 20) -- Mt. Moon Exit
 	else
@@ -104,7 +106,7 @@ function MoonFossilQuest:Route4()
 end
 
 function MoonFossilQuest:PokecenterRoute3()
-	self:pokecenter("Route 3")
+	return self:pokecenter("Route 3")
 end
 
 return MoonFossilQuest

@@ -23,6 +23,26 @@ function game.isPokemonFullPP(pokemonId)
 	return true
 end
 
+function game.useAnyMove()
+	local pokemonId = getActivePokemonNumber()
+	for i=1,4 do
+		local moveName = getPokemonMoveName(pokemonId, i)
+		if not moveName and getPokemonMoveRemainingPowerPoints() > 0 then
+			return useMove(moveName)
+		end
+	end
+	return false
+end
+
+function game.hasPokemonWithMove(Move)
+	for pokemonId=1, getTeamSize(), 1 do
+		if hasMove(pokemonId, Move) then
+			return true
+		end
+	end
+	return false
+end
+
 local function returnSorted(valueA, valueB)
 	if valueA > valueB then
 		return valueB, valueA
@@ -87,6 +107,23 @@ function game.getUsablePokemonCountUnderLevel(level)
 		end
 	end
 	return count
+end
+
+function game.getFirstUsablePokemon()
+	for pokemonId=1, getTeamSize(), 1 do
+		if isPokemonUsable(pokemonId) then
+			return pokemonId
+		end
+	end
+end
+
+function game.getPokemonIdWithItem(ItemName)	
+	for pokemonId=1, getTeamSize(), 1 do
+		if getPokemonHeldItem(pokemonId) == ItemName then
+			return pokemonId
+		end
+	end
+	return 0
 end
 	
 return game
